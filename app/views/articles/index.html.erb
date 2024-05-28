@@ -1,2 +1,107 @@
-<h1>Articles#index</h1>
-<p>Find me in app/views/articles/index.html.erb</p>
+<%
+=begin%>
+read of crud
+ <ul>
+  <% @articles.each do |article| %>
+    <li>
+      <a href="/articles/<%= article.id %>">
+        <%= article.title %>
+      </a>
+    </li>
+  <% end %>
+</ul> 
+<%
+=end%>
+<h1>Articles</h1>
+
+<ul>
+  <% @articles.each do |article| %>
+    <li>
+      <a href="<%= article_path(article) %>">
+        <%= article.title %>
+      </a>
+    </li>
+  <% end %>
+</ul>
+<%
+=begin%>
+ The link_to helper renders a link
+ with its first argument as the
+  link's text and its second 
+  argument as the link's
+   destination. If we pass 
+   a model object as the second 
+   argument, link_to will call 
+   the appropriate path helper 
+   to convert the object to a path. For example, if we pass an article, link_to will call article_path. So app/views/articles/index.html.erb becomes: 
+<%
+=end%>
+<h1>Articles</h1>
+
+<ul>
+  <% @articles.each do |article| %>
+    <li>
+      <%= link_to article.title, article %>
+    </li>
+  <% end %>
+</ul>
+
+ <h1>New Article</h1>
+
+<%= form_with model: @article do |form| %>
+  <div>
+    <%= form.label :title %><br>
+    <%= form.text_field :title %>
+    <% @article.errors.full_messages_for(:title).each do |message| %>
+      <div><%= message %></div>
+    <% end %>
+  </div>
+
+  <div>
+    <%= form.label :body %><br>
+    <%= form.text_area :body %><br>
+    <% @article.errors.full_messages_for(:body).each do |message| %>
+      <div><%= message %></div>
+    <% end %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>
+
+
+<h1>Articles</h1>
+
+<ul>
+  <% @articles.each do |article| %>
+    <li>
+      <%= link_to article.title, article %>
+    </li>
+  <% end %>
+</ul>
+
+<%= link_to "New Article", new_article_path %>
+<%= form_with model: @article, url: articles_path do |form| %>
+  <div>
+    <%= form.label :title %><br>
+    <%= form.text_field :title %>
+    <% if @article.errors.any? %>
+      <% @article.errors.full_messages_for(:title).each do |message| %>
+        <div><%= message %></div>
+      <% end %>
+    <% end %>
+  </div>
+
+  <div>
+    <%= form.label :body %><br>
+    <%= form.text_area :body %>
+    <% if @article.errors.any? %>
+      <% @article.errors.full_messages_for(:body).each do |message| %>
+        <div><%= message %></div>
+      <% end %>
+    <% end %>
+  </div>
+
+  <%= form.submit %>
+<% end %>
