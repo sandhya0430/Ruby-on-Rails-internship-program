@@ -1,3 +1,11 @@
-<h1>Edit Article</h1>
+<%
+=begin%>
+ <h1>Edit Article</h1>
 
-<%= render "form", article: @article %>
+<%= render "form", article: @article %> 
+<%
+=end%>
+
+<%= form_with model: @article, local: true do |form| %>
+  <%= render 'form', form: form %>
+<% end %>
